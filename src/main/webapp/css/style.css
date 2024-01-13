@@ -1,0 +1,16 @@
+table {
+    background: azure;
+    border: black solid 1px;
+}
+
+td, tr {
+    width: 150px;
+    border: black solid 1px;
+    text-align: center;
+}
+
+input, select {
+    width: 200px;
+    height: 40px;
+    background: azure;
+}

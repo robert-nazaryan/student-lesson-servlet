@@ -14,17 +14,26 @@
 <% if (!students.isEmpty()) {%>
 <table>
     <tr>
+        <th>PHOTO</th>
         <th>ID</th>
         <th>NAME</th>
         <th>SURNAME</th>
         <th>EMAIL</th>
         <th>AGE</th>
         <th>LESSON NAME</th>
+        <th>UPDATE</th>
         <th>DELETE</th>
     </tr>
 
     <%for (Student student : students) {%>
     <tr>
+        <td>
+            <%if (student.getPhotoName() != null) {%>
+            <img src="/downloadImage?imageName=<%=student.getPhotoName()%>">
+            <%} else {%>
+            <img src="/img/defaultProfilePhoto.png">
+            <%}%>
+        </td>
         <td><%=student.getId()%>
         </td>
         <td><%=student.getName()%>
@@ -37,6 +46,7 @@
         </td>
         <td><%=student.getLesson().getName()%>
         </td>
+        <td><a href="/updateStudent?id=<%=student.getId()%>">update</a></td>
         <td><a href="/deleteStudent?id=<%=student.getId()%>">delete</a></td>
     </tr>
     <%}%>

@@ -2,15 +2,15 @@
 <%@ page import="org.example.studentlessonservlet.model.Lesson" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<!DOCTYPE html>
 <head>
     <title>Lessons</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <% List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");%>
 
 <a href="/addLesson">Add Lesson</a><br><br>
-
 <% if (!lessons.isEmpty()) {%>
 <table>
     <tr>
@@ -19,6 +19,7 @@
         <th>DURATION</th>
         <th>LECTURER NAME</th>
         <th>PRICE</th>
+        <th>UPDATE</th>
         <th>DELETE</th>
     </tr>
 
@@ -33,6 +34,7 @@
         </td>
         <td><%=lesson.getPrice()%>
         </td>
+        <td><a href="/updateLesson?id=<%=lesson.getId()%>">update</a></td>
         <td><a href="/deleteLesson?id=<%=lesson.getId()%>">delete</a></td>
     </tr>
     <%}%>

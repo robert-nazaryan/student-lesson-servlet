@@ -3,10 +3,13 @@ table {
     border: black solid 1px;
 }
 
-td, tr {
+td {
     width: 150px;
     border: black solid 1px;
     text-align: center;
+}
+td > img{
+    height: 50px;
 }
 
 input, select {

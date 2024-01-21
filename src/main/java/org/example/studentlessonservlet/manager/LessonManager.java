@@ -29,6 +29,25 @@ public class LessonManager {
         return null;
     }
 
+    public Lesson get(String name) {
+        String query = "SELECT * FROM lesson WHERE name=" + name;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.getResultSet();
+            if (resultSet != null && resultSet.next()) {
+                return Lesson.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .duration(resultSet.getDouble("duration"))
+                        .lectureName(resultSet.getString("lecturerName"))
+                        .price(resultSet.getDouble("price"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Lesson> getAll() {
         String query = "SELECT * FROM lesson";
         List<Lesson> lessons = new ArrayList<>();

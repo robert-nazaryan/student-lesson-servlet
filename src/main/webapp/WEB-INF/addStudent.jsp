@@ -9,6 +9,11 @@
 <body>
 <%List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");%>
 
+<% if (session.getAttribute("msg") != null) {%>
+<span style="color: red"><%=session.getAttribute("msg")%></span>
+<% session.removeAttribute("msg");%>
+<%}%>
+
 <form action="/addStudent" method="post" enctype="multipart/form-data">
     <input type="text" name="studentName" placeholder="Name"><br>
     <input type="text" name="studentSurname" placeholder="Surname"><br>

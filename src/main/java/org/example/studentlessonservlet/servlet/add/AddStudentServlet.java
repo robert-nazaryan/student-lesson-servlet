@@ -30,6 +30,11 @@ public class AddStudentServlet extends HttpServlet {
         String studentName = req.getParameter("studentName");
         String studentSurname = req.getParameter("studentSurname");
         String studentEmail = req.getParameter("studentEmail");
+        if (studentManager.get(studentEmail) == null) {
+            req.getSession().setAttribute("msg", "Student with this email is already there!");
+            resp.sendRedirect("/addStudent");
+            return;
+        }
         int studentAge = Integer.parseInt(req.getParameter("studentAge"));
         int studentLessonId = Integer.parseInt(req.getParameter("studentLessonId"));
         Part studentPhoto = req.getPart("studentPhoto");

@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<% if (session.getAttribute("msg") != null) {%>
+<span style="color: red"><%=session.getAttribute("msg")%></span>
+<% session.removeAttribute("msg");%>
+<%}%>
+
 <form action="/addLesson" method="post">
     <input type="text" name="lessonName" placeholder="Name"><br>
     <input type="number" step="any" name="lessonDuration" placeholder="Duration"><br>

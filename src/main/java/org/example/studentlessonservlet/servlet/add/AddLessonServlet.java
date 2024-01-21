@@ -17,9 +17,14 @@ public class AddLessonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String lessonName = req.getParameter("lessonName");
-        Double lessonDuration = Double.valueOf(req.getParameter("lessonDuration"));
+        if (lessonManager.get(lessonName) == null) {
+            req.getSession().setAttribute("msg", "Lesson with this name is already there!");
+            resp.sendRedirect("/addLesson");
+            return;
+        }
+        double lessonDuration = Double.parseDouble(req.getParameter("lessonDuration"));
         String lessonLecturerName = req.getParameter("lessonLecturerName");
-        Double lessonPrice = Double.valueOf(req.getParameter("lessonPrice"));
+        double lessonPrice = Double.parseDouble(req.getParameter("lessonPrice"));
         lessonManager.add(Lesson.builder()
                 .name(lessonName)
                 .duration(lessonDuration)
@@ -31,6 +36,6 @@ public class AddLessonServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/addLesson.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/addLesson.jsp").forward(req, resp);
     }
 }

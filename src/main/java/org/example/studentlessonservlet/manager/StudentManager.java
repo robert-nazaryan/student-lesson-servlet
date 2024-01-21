@@ -74,6 +74,27 @@ public class StudentManager {
         return null;
     }
 
+    public Student get(String email) {
+        String query = "SELECT * FROM student WHERE email=" + email;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet != null && resultSet.next()) {
+                return Student.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .surname(resultSet.getString("surname"))
+                        .email(resultSet.getString("email"))
+                        .age(resultSet.getInt("age"))
+                        .lesson(lessonManager.get(resultSet.getInt("lesson_id")))
+                        .photoName(resultSet.getString("photo_name"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void delete(int id) {
         String query = "DELETE FROM student WHERE id=" + id;
         try (Statement statement = connection.createStatement()) {
@@ -84,7 +105,7 @@ public class StudentManager {
     }
 
     public void update(Student student) {
-        String query = "UPDATE student name=?, surname=?, email=?, age=?, lesson_id=?, photo_name=? WHERE id=" + student.getId();
+        String query = "UPDATE student SET name=?, surname=?, email=?, age=?, lesson_id=?, photo_name=? WHERE id=" + student.getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, student.getName());
             preparedStatement.setString(2, student.getSurname());
